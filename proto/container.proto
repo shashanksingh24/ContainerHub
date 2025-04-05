@@ -1,0 +1,78 @@
+syntax = "proto3";
+package container;
+
+service ContainerService {
+  rpc CreateContainer (CreateRequest) returns (CreateResponse) {}
+  rpc StartContainer (StartRequest) returns (StartResponse) {}
+  rpc StopContainer (StopRequest) returns (StopResponse) {}
+  rpc DeleteContainer (DeleteRequest) returns (DeleteResponse) {}
+  rpc ExecCommand (ExecRequest) returns (ExecResponse) {}
+  rpc ListContainers (ListRequest) returns (ListResponse) {}
+  rpc GetContainerLogs (LogsRequest) returns (LogsResponse) {}
+}
+
+message CreateRequest {
+  string image = 1;
+  string name = 2;
+  string command = 3;
+}
+
+message CreateResponse {
+  string container_id = 1;
+}
+
+message StartRequest {
+  string container_id = 1;
+}
+
+message StartResponse {
+  bool success = 1;
+}
+
+message StopRequest {
+  string container_id = 1;
+}
+
+message StopResponse {
+  bool success = 1;
+}
+
+message DeleteRequest {
+  string container_id = 1;
+}
+
+message DeleteResponse {
+  bool success = 1;
+}
+
+message ExecRequest {
+  string container_id = 1;
+  string command = 2;
+}
+
+message ExecResponse {
+  string output = 1;
+  bool success = 2;
+}
+
+message ListRequest {}
+
+message ContainerInfo {
+  string id = 1;
+  string name = 2;
+  string image = 3;
+  string status = 4;
+}
+
+message ListResponse {
+  repeated ContainerInfo containers = 1;
+}
+
+message LogsRequest {
+  string container_id = 1;
+}
+
+message LogsResponse {
+  string logs = 1;
+  bool success = 2;
+}
