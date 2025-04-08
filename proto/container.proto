@@ -1,7 +1,7 @@
 syntax = "proto3";
 package container;
 
-option go_package = "github.com/shashanksingh24/ContainerHub/proto";
+option go_package = "github.com/shashanksingh24/ContainerHub/proto;proto";
 
 service ContainerService {
   rpc CreateContainer (CreateRequest) returns (CreateResponse) {}
