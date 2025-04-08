@@ -5,13 +5,13 @@ import (
 	"log"
 	"os"
 
-	"containerhub/pkg/rpc"
+	"github.com/shashanksingh24/ContainerHub/pkg/rpc"
 
 	"github.com/spf13/cobra"
 )
 
 var (
-	socketPath = "/var/run/containerhub.sock"
+	socketPath = "/tmp/containerhub.sock"
 )
 
 func main() {
