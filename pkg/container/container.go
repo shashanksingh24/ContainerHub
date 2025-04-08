@@ -15,7 +15,7 @@ type Container struct {
 }
 
 func (c *Container) PrepareBundle() error {
-	bundleDir := filepath.Join("/var/lib/containerhub", c.ID)
+	bundleDir := filepath.Join("/tmp/containerhub", c.ID)
 	if err := os.MkdirAll(bundleDir, 0755); err != nil {
 		return err
 	}
