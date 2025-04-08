@@ -10,10 +10,11 @@ import (
 	"path/filepath"
 	"sync"
 
-	pb "containerhub/proto"
-	"containerhub/pkg/container"
+	pb "github.com/shashanksingh24/ContainerHub/proto"
+	"github.com/shashanksingh24/ContainerHub/pkg/container"
 
 	"google.golang.org/grpc"
+	"math/rand"
 )
 
 type Server struct {
@@ -60,7 +61,7 @@ func (s *Server) StartContainer(ctx context.Context, req *pb.StartRequest) (*pb.
 		return &pb.StartResponse{Success: false}, nil
 	}
 
-	err := exec.Command("runc", "run", "-d", "--log", filepath.Join("/var/lib/containerhub", c.ID, "log.json"), c.ID).Run()
+	err := exec.Command("runc", "run", "-d", "--log", filepath.Join("/tmp/containerhub", c.ID, "log.json"), c.ID).Run()
 	if err != nil {
 		log.Printf("Failed to start %s: %v", c.ID, err)
 		return nil, err
@@ -100,7 +101,7 @@ func (s *Server) DeleteContainer(ctx context.Context, req *pb.DeleteRequest) (*p
 		return &pb.DeleteResponse{Success: false}, nil
 	}
 
-	err := os.RemoveAll(filepath.Join("/var/lib/containerhub", c.ID))
+	err := os.RemoveAll(filepath.Join("/tmp/containerhub", c.ID))
 	if err != nil {
 		log.Printf("Failed to delete bundle for %s: %v", c.ID, err)
 		return nil, err
@@ -156,7 +157,7 @@ func (s *Server) GetContainerLogs(ctx context.Context, req *pb.LogsRequest) (*pb
 		return &pb.LogsResponse{Success: false}, nil
 	}
 
-	logFile := filepath.Join("/var/lib/containerhub", c.CID, "log.json")
+	logFile := filepath.Join("/tmp/containerhub", c.CID, "log.json")
 	logs, err := os.ReadFile(logFile)
 	if err != nil {
 		log.Printf("Failed to read logs for %s: %v", c.ID, err)
