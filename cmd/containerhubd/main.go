@@ -1,9 +1,9 @@
 package main
 
 import (
-	"containerhub/pkg/rpc"
+	"github.com/shashanksingh24/ContainerHub/pkg/rpc"
 )
 
 func main() {
-	rpc.StartServer("/var/run/containerhub.sock")
+	rpc.StartServer("/tmp/containerhub.sock")
 }
